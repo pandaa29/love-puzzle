@@ -109,16 +109,13 @@ document.addEventListener("DOMContentLoaded", function () {
     var music = document.getElementById("background-music");
 
     function playMusic() {
-        music.muted = false;  // Ensure unmuted
+        music.muted = false;  // Unmute after short delay
         music.play().catch(error => {
-            console.log("Autoplay blocked, waiting for user interaction...");
+            console.log("Autoplay blocked, trying again...");
+            setTimeout(playMusic, 1000);  // Retry after 1 second
         });
     }
 
-    // Try to play music on page load
-    playMusic();
-
-    // If blocked, wait for user interaction (click, keypress)
-    document.body.addEventListener("click", playMusic);
-    document.body.addEventListener("keydown", playMusic);
+    setTimeout(playMusic, 500); // Wait for the page to load fully, then unmute
 });
+
