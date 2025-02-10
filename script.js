@@ -104,3 +104,21 @@ function drop(ev) {
     }
   }
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    var music = document.getElementById("background-music");
+
+    function playMusic() {
+        music.muted = false;  // Ensure unmuted
+        music.play().catch(error => {
+            console.log("Autoplay blocked, waiting for user interaction...");
+        });
+    }
+
+    // Try to play music on page load
+    playMusic();
+
+    // If blocked, wait for user interaction (click, keypress)
+    document.body.addEventListener("click", playMusic);
+    document.body.addEventListener("keydown", playMusic);
+});
